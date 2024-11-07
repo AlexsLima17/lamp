@@ -1,3 +1,4 @@
 # lamp
-Simples app para simular uma lâmpada
+#Simples app para simular uma lâmpada
+
 ![](img/LampQR.png)
