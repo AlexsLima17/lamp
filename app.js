@@ -41,3 +41,54 @@ function onoff() {
         }
     }
 }
+// Estudo de eventos relacionados a click do mouse (precionando ou não precionado) e telas touch
+// Passo 1 - capturar os elementos do html (DOM)
+const botao = document.getElementById('button')
+const lampadaimg = document.getElementById('lamp')
+
+// Passo 2 - Manipular o evento mouse pressionada
+// addEventListener ("escutar de eventos em tempo real")
+// Mousedown (Mouse pressionado constantemente)
+// Mouseup (soltar o botão do mouse)
+// TouchStart (tocar na tela e manter)
+// Touchend (deixar de pressionar a tela )
+
+// Pressionar o botão do mouse e manter
+botao.addEventListener('mousedown', (event) => {
+    event.preventDefault() //ignorar o comportamento padrão
+    //console.log("botão do mouse pressionado")
+    //se a lãmpada estiver intacta e o interruptor principal estiver desligado
+    if (lampada === true && chave === false) {
+        lampadaimg.src = "img/on.jpg" // Trocar a imagem
+    }
+})
+
+// Soltar o botão do mouse 
+botao.addEventListener('mouseup', (event) => {
+    event.preventDefault() //ignorar o comportamento padrão
+    //console.log("botão do mouse solto")
+    //se a lãmpada estiver intacta e o interruptor principal estiver desligado
+    if (lampada === true && chave === false) {
+        lampadaimg.src = "img/off.jpg" // Trocar a imagem
+    }
+})
+
+// Pressionar a tela touch e manter 
+botao.addEventListener('touchstart', (event) => {
+    event.preventDefault() //ignorar o comportamento padrão
+    //console.log("tela precionada")
+    //se a lãmpada estiver intacta e o interruptor principal estiver desligado
+    if (lampada === true && chave === false) {
+        lampadaimg.src = "img/on.jpg" // Trocar a imagem
+    }
+})
+
+// Deixar de pressionar a tela touch
+botao.addEventListener('touchend', (event) => {
+    event.preventDefault() //ignorar o comportamento padrão
+    //console.log("a tela não está pressionada")
+    //se a lãmpada estiver intacta e o interruptor principal estiver desligado
+    if (lampada === true && chave === false) {
+        lampadaimg.src = "img/off.jpg" // Trocar a imagem
+    }
+})
