@@ -1,34 +1,43 @@
 /**
- * Simples simulador de uma lampada
+ * Simples simulador de uma lâmpada
  * @author Alex Lima
  */
 
-let chave = false
-let lampada = true
+// variáveis de apoio  lógica
+let chave = false // o interruptor inicia desligado
+let lampada = true // a lâmpada está OK
 
+// Pré carregamento do arquivo de áudio
+let som = new Audio("sound/breaking-glass.mp3")
 
 function quebrar() {
     if (lampada === true) {
-        //reproduzindo um arquivo de audio do JS
-        // passo 1: copiar o arquivo de audio para o projeto
-        // passo 2: usae a classe Audio(biblioteca interna do JS)
-        let som = new Audio()
-        som.src = "sound/glassbreaking.wav"
-        som.play()
-        //apoio a logica para o JS identificar a lampada
         document.getElementById('lamp').src = "img/broken.jpg"
+        // reproduzindo um arquivo de áudio no JS
+        // Passo 1: copiar o arquivo de áudio para o projeto
+        // Passo 2: Usar a classe Audio(biblioteca interna do JS)
+        // Passo 3: pré carregar o arquivo de áudio para sincronizar com a troca de imagem (Experência do Usuário)
+        som.play()
+        // apoo a lógica para o JS identificar a lâmpada quebrada
         lampada = false
     }
 }
 
 function onoff() {
-    if (chave === false && lampada === true) {
+    if (chave === false) {
+        // ligar a chave
         document.getElementById('interruptor').src = "img/swon.png"
-        document.getElementById('lamp').src = "img/on.jpg"
-        chave = true //chave ligada
-    } else if (lampada === true) {
+        chave = true //O JS agora sabe que a chave está ligada
+        // verificar se a lâmpada está intacta antes de acender
+        if (lampada === true) {
+            document.getElementById('lamp').src = "img/on.jpg"
+        }
+    } else {
         document.getElementById('interruptor').src = "img/swoff.png"
-        document.getElementById('lamp').src = "img/off.jpg"
         chave = false
+        // verificar se a lâmpada está intacta antes de apagar
+        if (lampada === true) {
+            document.getElementById('lamp').src = "img/off.jpg"
+        }
     }
 }
