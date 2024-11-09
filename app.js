@@ -10,10 +10,9 @@ let lampada = true // a lâmpada está OK
 // Pré carregamento do arquivo de áudio
 let som = new Audio("sound/breaking-glass.mp3")
 
-// Lanterna (pré carregamento)
-let stream, track
+// lanterna (pré carregamento)
+let stream, track // variáveis de apoio
 inicializarLanterna()
-
 
 function quebrar() {
     if (lampada === true) {
@@ -46,74 +45,71 @@ function onoff() {
         }
     }
 }
-// Estudo de eventos relacionados a click do mouse (precionando ou não precionado) e telas touch
+
+// Estudo de eventos relacionados a click do mouse (pressionado ou não pressionado) e telas touch
 // Passo 1 - capturar os elementos do html (DOM)
 const botao = document.getElementById('button')
-const lampadaimg = document.getElementById('lamp')
+const lampadaImg = document.getElementById('lamp')
 
-// Passo 2 - Manipular o evento mouse pressionada
-// addEventListener ("escutar de eventos em tempo real")
-// Mousedown (Mouse pressionado constantemente)
-// Mouseup (soltar o botão do mouse)
-// TouchStart (tocar na tela e manter)
-// Touchend (deixar de pressionar a tela )
+// Passo 2 - manipular o evento mouse pressionado
+// addEventListener ("escuta de eventos em tempo real")
+// mousedown (mouse pressionado constantemente)
+// mouseup (soltar o botão do mouse)
+// touchstart (tocar na tela e manter)
+// touchend (deixar de pressionar a tela)
 
-// Pressionar o botão do mouse e manter
+// pressionar o botão do mouse e manter
 botao.addEventListener('mousedown', (event) => {
     event.preventDefault() //ignorar o comportamento padrão
-    //console.log("botão do mouse pressionado")
-    //se a lãmpada estiver intacta e o interruptor principal estiver desligado
+    // console.log("botão do mouse pressionado")
+    // se a lâmpada estiver intatcta e o interruptor principal estiver desligado
     if (lampada === true && chave === false) {
-        lampadaimg.src = "img/on.jpg" // Trocar a imagem
+        lampadaImg.src = "img/on.jpg" //trocar a imagem 
     }
 })
 
-// Soltar o botão do mouse 
+// soltar o botão do mouse
 botao.addEventListener('mouseup', (event) => {
     event.preventDefault() //ignorar o comportamento padrão
-    //console.log("botão do mouse solto")
-    //se a lãmpada estiver intacta e o interruptor principal estiver desligado
+    // console.log("botão do mouse solto")
+    // se a lâmpada estiver intatcta e o interruptor principal estiver desligado
     if (lampada === true && chave === false) {
-        lampadaimg.src = "img/off.jpg" // Trocar a imagem
+        lampadaImg.src = "img/off.jpg" //trocar a imagem 
     }
 })
 
-// Pressionar a tela touch e manter 
+// pressionar a tela touch e manter
 botao.addEventListener('touchstart', (event) => {
     event.preventDefault() //ignorar o comportamento padrão
-    //console.log("tela precionada")
-    //se a lãmpada estiver intacta e o interruptor principal estiver desligado
+    // console.log("tela pressionada")
+    // se a lâmpada estiver intatcta e o interruptor principal estiver desligado
     if (lampada === true && chave === false) {
-        lampadaimg.src = "img/on.jpg" // Trocar a imagem
+        lampadaImg.src = "img/on.jpg" //trocar a imagem 
     }
 })
 
-// Deixar de pressionar a tela touch
+// deixar de pressionar a tela touch
 botao.addEventListener('touchend', (event) => {
     event.preventDefault() //ignorar o comportamento padrão
-    //console.log("a tela não está pressionada")
-    //se a lãmpada estiver intacta e o interruptor principal estiver desligado
+    // console.log("a tela não está sendo pressionada")
+    // se a lâmpada estiver intatcta e o interruptor principal estiver desligado
     if (lampada === true && chave === false) {
-        lampadaimg.src = "img/off.jpg" // Trocar a imagem
+        lampadaImg.src = "img/off.jpg" //trocar a imagem 
     }
 })
 
-// lanterna (pré carregamento)
-let stream, track
-inicializarLanterna()
-
-// Lanterna
-// Inicializa o stream e configura o track apenas uma vez
+// lanterna (torch)
 async function inicializarLanterna() {
+    //try-catch (tratamento de exceções)
     try {
         // Solicita acesso à câmera traseira sem exibir o vídeo
         stream = await navigator.mediaDevices.getUserMedia({
             video: { facingMode: "environment" }
         })
-        
+
         // Obtém o track do vídeo para controlar a lanterna
         track = stream.getVideoTracks()[0]
-        
+
         // Verifica se o dispositivo suporta o uso da lanterna
         const capabilities = track.getCapabilities()
         if (!capabilities.torch) {
@@ -124,9 +120,6 @@ async function inicializarLanterna() {
         console.error(`Erro ao inicializar a lanterna: ${error}`)
     }
 }
-
-
-
 
 // Função para ligar a lanterna (torch)
 async function ligar() {
