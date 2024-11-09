@@ -98,9 +98,13 @@ botao.addEventListener('touchend', (event) => {
     }
 })
 
+// lanterna (pré carregamento)
+let stream, track
+inicializarLanterna()
+
 // Lanterna
+// Inicializa o stream e configura o track apenas uma vez
 async function inicializarLanterna() {
-    //Tratamento de exceções
     try {
         // Solicita acesso à câmera traseira sem exibir o vídeo
         stream = await navigator.mediaDevices.getUserMedia({
@@ -124,8 +128,8 @@ async function inicializarLanterna() {
 
 
 
-async function ligar () {
-    // Função para ligar a lanterna (torch)
+// Função para ligar a lanterna (torch)
+async function ligar() {
     if (track) {
         try {
             await track.applyConstraints({ advanced: [{ torch: true }] })
@@ -135,10 +139,8 @@ async function ligar () {
     }
 }
 
-
-async function desligar() {
 // Função para desligar a lanterna sem parar o stream
-
+async function desligar() {
     if (track) {
         try {
             await track.applyConstraints({ advanced: [{ torch: false }] })
